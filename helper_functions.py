@@ -7,8 +7,10 @@ import seaborn as sns
 import pysam
 import os
 import argparse
+import pyfaidx
 import sys
 
+##### helper functions for processing input BAM files
 def fetch_reads(bamfile, region):
     """
     Fetches reads from a BAM file at a specific region.
@@ -83,3 +85,48 @@ def fetch_reads_multiple_bams(bamfolder, region):
         output_readdf = pd.concat([output_readdf, readdf], axis = 0)
     return output_readdf
 
+##### helper functions for processing CpG status in reads#
+def get_refseq(path_to_all_fa, chrom, start, end):
+    """
+    Retrieves the reference sequence from a given FASTA file.
+    Args:
+        path_to_all_fa (str): The path to the directory containing all the FASTA files.
+        chrom (str): The chromosome identifier.
+        start (int): The starting position of the sequence.
+        end (int): The ending position of the sequence.
+    Returns:
+        str: The uppercase reference sequence.
+    Raises:
+        FileNotFoundError: If the FASTA file for the specified chromosome is not found.
+    """
+    refseq = pyfaidx.Fasta(os.path.join(path_to_all_fa, "chr{}.fa".format(chrom)))
+    return(str.upper(refseq.get_seq(name = "chr{}".format(chrom), start = start, end = end).seq))
+            
+def get_CpG_status(read_start, read_end, read, cpg_pos, mode = "string"):    
+    """
+    Returns the CpG status of a given genomic position within a read.
+
+    Parameters:
+    - read_start (int): The starting position of the read.
+    - read_end (int): The ending position of the read.
+    - read (str): The sequence of the read.
+    - cpg_pos (int): The genomic position of interest.
+    - mode (str): The mode of the output. Can be "string" or "num". Defaults to "string".
+
+    Returns:
+    - str or int: The CpG status of the genomic position. If mode is "string", returns the sequence at the position. If mode is "num", returns -1 for "not_covered", 1 for "CG", and 0 for other sequences.
+    """
+    if (read_start <= cpg_pos) and (read_end >= cpg_pos):
+        seq = read[cpg_pos - read_start: cpg_pos + 1 - read_start + 1]
+    else:
+        seq = "not_covered"
+    if mode == "string":
+        return seq
+    elif mode == "num":
+        if seq == "not_covered":
+            seq = -1
+        elif seq == "CG":
+            seq = 1
+        else:
+            seq = 0
+        return seq
