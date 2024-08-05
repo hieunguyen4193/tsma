@@ -1,6 +1,6 @@
 # Tumor specific methylation atlas
 
-This is a repository code for the paper "Tissue of origin detection for cancer tumor using low-depth cfDNA samples through combination of tumor-specific methylation atlas and genome-wide methylation density in graph convolutional neural networks" (DOI https://doi.org/10.1186/s12967-024-05416-z).  
+Code repository for "Tissue of origin detection for cancer tumor using low-depth cfDNA samples through combination of tumor-specific methylation atlas and genome-wide methylation density in graph convolutional neural networks" (DOI https://doi.org/10.1186/s12967-024-05416-z).  
 
 ## Table of Contents
 
