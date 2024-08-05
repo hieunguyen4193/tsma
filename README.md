@@ -10,7 +10,7 @@ Code repository for "Tissue of origin detection for cancer tumor using low-depth
   - [Usage](#usage)
 
 ## Requirements
-Conda environment to run code in this repository: `conda env create -f env.yml`
+Conda environment: `conda env create -f env.yml`
 
 ## Usage
 To replicate the analysis in the paper, proceed as follows
