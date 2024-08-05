@@ -15,7 +15,7 @@ Conda environment to run code in this repository: `conda env create -f env.yml`
 ## Usage
 To replicate the analysis in the paper, proceed as follows
 
-- Run `construct_CpG_regions.py` to generate a `BED` file containing more than 1.1m regions. Each region is a cluste of at least 5 CpGs in a 100bp window across the whole genome (hg19).
+- Run `construct_CpG_regions.py` to generate a `BED` file containing more than 1.1m regions. Each region is a cluste of at least 5 CpGs in a 100bp window across the whole genome (hg19). Modify the variables `radius` and `min_num_CpG` to change the window length and minimum number of CpG sites in a window.
 
 - Main functions are stored in `helper_functions.py`, 
   - `fetch_reads`: Fetch all reads overlapping a genomic region (`region`: `chr1:1-100`) from a `BAM` file.

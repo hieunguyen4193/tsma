@@ -19,8 +19,11 @@ path_to_all_fa = "/Users/hieunguyen/data/resources/hg19"
 all_fa_files = [file for file in pathlib.Path(path_to_all_fa).glob("*.fa")]
 
 import numpy as np
+
 radius = 100
-output = open("CpG_clusters_whole_genome_radius_{}.bed".format(radius), 'w')
+min_num_Cpg = 4
+
+output = open("CpG_clusters_whole_genome_radius_{}_minCpG_{}.bed".format(radius, min_num_Cpg), 'w')
     
 for file in sorted(all_fa_files):
     filename = file.name.strip(".fa")
@@ -59,7 +62,7 @@ for file in sorted(all_fa_files):
             all_cpg_cluster = dict()
 
     for key in tmp_cpg_clusters.keys():
-        if (len(tmp_cpg_clusters[key]) >= 4):
+        if (len(tmp_cpg_clusters[key]) >= min_num_Cpg):
             all_cpg_cluster[key] = tmp_cpg_clusters[key]
             
     for key in all_cpg_cluster.keys():
