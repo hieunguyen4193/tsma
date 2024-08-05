@@ -27,3 +27,4 @@ To replicate the analysis in the paper, proceed as follows
   - add script to convert TCGA methylation array to match the sequencing data format. 
   - add deconvolution functions.
   - add summary script to generate the final atlas. 
+  - add `nextflow` pipeline (re-write in `DSL2`) that distribute the computation parallely for all regions. 
